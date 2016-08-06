@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Pet Finder</string>
+    <string name="camera_not_found">Camera not found.</string>
+    <string name="not_found">Not Found</string>
+    <string name="rescan">Rescan</string>
+    <string name="scan_tag">Scan Tag</string>
+</resources>
