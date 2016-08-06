@@ -4,8 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import com.adammcneilly.petfinder.interfaces.OnFragmentDismissedListener;
 import com.adammcneilly.petfinder.R;
+import com.adammcneilly.petfinder.fragments.HomeFragment;
 import com.adammcneilly.petfinder.fragments.ScanFragment;
 
 /**
@@ -13,7 +13,7 @@ import com.adammcneilly.petfinder.fragments.ScanFragment;
  *
  * Created by adam.mcneilly on 8/6/16.
  */
-public abstract class CoreActivity extends AppCompatActivity implements OnFragmentDismissedListener {
+public class CoreActivity extends AppCompatActivity {
 
     protected void setupToolbar(String title, boolean displayHome) {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -31,9 +31,9 @@ public abstract class CoreActivity extends AppCompatActivity implements OnFragme
             case ScanFragment.FRAGMENT_NAME:
                 fragment = ScanFragment.newInstance();
                 break;
+            case HomeFragment.FRAGMENT_NAME:
             default:
-                //TODO: Use a default fragment other than ScanFragment.
-                fragment = ScanFragment.newInstance();
+                fragment = HomeFragment.newInstance();
                 break;
         }
 
@@ -49,7 +49,10 @@ public abstract class CoreActivity extends AppCompatActivity implements OnFragme
         switch(item.getItemId()) {
             case android.R.id.home:
                 getSupportFragmentManager().popBackStackImmediate();
-                onFragmentDismissed();
+                // If we only have one fragment, hide back button.
+                if(getSupportFragmentManager().getBackStackEntryCount() == 1 && getSupportActionBar() != null) {
+                    getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

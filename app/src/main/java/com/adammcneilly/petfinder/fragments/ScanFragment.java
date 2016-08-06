@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.graphics.PointF;
 import android.support.annotation.NonNull;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.os.Bundle;
@@ -22,9 +23,7 @@ import com.dlazaro66.qrcodereaderview.QRCodeReaderView;
  */
 public class ScanFragment extends CoreFragment implements QRCodeReaderView.OnQRCodeReadListener {
     //region UI Elements
-    private View root;
     private QRCodeReaderView qrCodeReaderView;
-    private Snackbar snackbar;
     //endregion
 
     //region Constants
@@ -46,7 +45,7 @@ public class ScanFragment extends CoreFragment implements QRCodeReaderView.OnQRC
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        root = inflater.inflate(R.layout.fragment_scan, container, false);
+        root = (CoordinatorLayout) inflater.inflate(R.layout.fragment_scan, container, false);
 
         qrCodeReaderView = (QRCodeReaderView) root.findViewById(R.id.qrdecoderview);
         qrCodeReaderView.setOnQRCodeReadListener(this);
@@ -59,6 +58,7 @@ public class ScanFragment extends CoreFragment implements QRCodeReaderView.OnQRC
     @Override
     public void onResume() {
         super.onResume();
+        setupToolbar(getString(R.string.scan_tag), true);
         if(hasCameraPermission()) {
             qrCodeReaderView.getCameraManager().startPreview();
         } else {
@@ -73,13 +73,6 @@ public class ScanFragment extends CoreFragment implements QRCodeReaderView.OnQRC
             qrCodeReaderView.getCameraManager().stopPreview();
         }
     }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        snackbar.dismiss();
-    }
-
     //endregion
 
     //region QR
