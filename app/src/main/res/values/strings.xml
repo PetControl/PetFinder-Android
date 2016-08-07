@@ -10,4 +10,5 @@
     <string name="owner_address">Owner Address:</string>
     <string name="call_owner">Call Owner</string>
     <string name="text_owner">Text Owner</string>
+    <string name="search_by_id">Search By ID</string>
 </resources>
