@@ -5,4 +5,7 @@
     <string name="rescan">Rescan</string>
     <string name="scan_tag">Scan Tag</string>
     <string name="pet_info">Pet Info</string>
+    <string name="pet_name">Pet Name:</string>
+    <string name="pet_owner">Pet Owner:</string>
+    <string name="owner_address">Owner Address:</string>
 </resources>

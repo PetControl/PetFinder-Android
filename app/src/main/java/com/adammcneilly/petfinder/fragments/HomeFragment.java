@@ -7,6 +7,7 @@ import android.support.v7.widget.AppCompatButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.adammcneilly.petfinder.R;
 import com.adammcneilly.petfinder.core.CoreFragment;
@@ -33,7 +34,7 @@ public class HomeFragment extends CoreFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         root = (CoordinatorLayout) inflater.inflate(R.layout.fragment_home, container, false);
 
-        AppCompatButton scanTagButton = (AppCompatButton) root.findViewById(R.id.scan_button);
+        Button scanTagButton = (Button) root.findViewById(R.id.scan_button);
         scanTagButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

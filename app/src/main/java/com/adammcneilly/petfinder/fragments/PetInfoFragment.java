@@ -71,12 +71,14 @@ public class PetInfoFragment extends CoreFragment {
 
                     @Override
                     public void onError(Throwable e) {
-                        ((TextView)root.findViewById(R.id.debug_view)).setText(e.getMessage());
+
                     }
 
                     @Override
                     public void onNext(Pet pet) {
-                        ((TextView)root.findViewById(R.id.debug_view)).setText(pet.toString());
+                        ((TextView)root.findViewById(R.id.pet_name)).setText(pet.petName);
+                        ((TextView)root.findViewById(R.id.pet_owner)).setText(pet.ownerName);
+                        ((TextView)root.findViewById(R.id.owner_address)).setText(pet.ownerAddress);
                     }
                 });
     }
