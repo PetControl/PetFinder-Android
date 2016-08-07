@@ -6,6 +6,7 @@ import android.support.design.widget.CoordinatorLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.adammcneilly.petfinder.R;
@@ -79,6 +80,8 @@ public class PetInfoFragment extends CoreFragment {
                         ((TextView)root.findViewById(R.id.pet_name)).setText(pet.petName);
                         ((TextView)root.findViewById(R.id.pet_owner)).setText(pet.ownerName);
                         ((TextView)root.findViewById(R.id.owner_address)).setText(pet.ownerAddress);
+                        (root.findViewById(R.id.call_owner)).setEnabled(true);
+                        (root.findViewById(R.id.text_owner)).setEnabled(true);
                     }
                 });
     }

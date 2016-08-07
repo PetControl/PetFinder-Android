@@ -8,4 +8,6 @@
     <string name="pet_name">Pet Name:</string>
     <string name="pet_owner">Pet Owner:</string>
     <string name="owner_address">Owner Address:</string>
+    <string name="call_owner">Call Owner</string>
+    <string name="text_owner">Text Owner</string>
 </resources>

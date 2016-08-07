@@ -65,6 +65,27 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"/>
         </LinearLayout>
 
+        <Button
+            android:id="@+id/call_owner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@color/colorAccent"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:text="@string/call_owner"
+            android:enabled="false"/>
+
+        <Button
+            android:id="@+id/text_owner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@color/colorAccent"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:text="@string/text_owner"
+            android:enabled="false"/>
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>
