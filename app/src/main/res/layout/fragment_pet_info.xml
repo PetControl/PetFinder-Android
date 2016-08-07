@@ -70,8 +70,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:background="@color/colorAccent"
-            android:textColor="@android:color/white"
+            android:theme="@style/MyButton"
             android:textStyle="bold"
             android:text="@string/call_owner"
             android:enabled="false"/>
@@ -81,8 +80,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:background="@color/colorAccent"
-            android:textColor="@android:color/white"
+            android:theme="@style/MyButton"
             android:textStyle="bold"
             android:text="@string/text_owner"
             android:enabled="false"/>
