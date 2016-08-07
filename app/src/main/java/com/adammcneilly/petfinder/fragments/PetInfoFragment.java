@@ -1,5 +1,7 @@
 package com.adammcneilly.petfinder.fragments;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
@@ -25,8 +27,12 @@ import rx.schedulers.Schedulers;
  */
 public class PetInfoFragment extends CoreFragment {
     private String petId;
+    private Pet pet;
     private static final String PET_ID = "petId";
     public static final String FRAGMENT_NAME = "PetInfo";
+
+    private Button callOwnerButton;
+    private Button textOwnerButton;
 
     public static PetInfoFragment newInstance(String id) {
         Bundle args = new Bundle();
@@ -54,12 +60,28 @@ public class PetInfoFragment extends CoreFragment {
 
         setupToolbar(getString(R.string.pet_info), true);
 
-        displayPet();
+        callOwnerButton = (Button) root.findViewById(R.id.call_owner);
+        textOwnerButton = (Button) root.findViewById(R.id.text_owner);
+
+        callOwnerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                callOwner();
+            }
+        });
+        textOwnerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                textOwner();
+            }
+        });
+
+        fetchPet();
 
         return root;
     }
 
-    private void displayPet() {
+    private void fetchPet() {
         PetService service = PetService.retrofit.create(PetService.class);
         service.getPetForId(petId)
                 .subscribeOn(Schedulers.newThread())
@@ -77,12 +99,33 @@ public class PetInfoFragment extends CoreFragment {
 
                     @Override
                     public void onNext(Pet pet) {
-                        ((TextView)root.findViewById(R.id.pet_name)).setText(pet.petName);
-                        ((TextView)root.findViewById(R.id.pet_owner)).setText(pet.ownerName);
-                        ((TextView)root.findViewById(R.id.owner_address)).setText(pet.ownerAddress);
-                        (root.findViewById(R.id.call_owner)).setEnabled(true);
-                        (root.findViewById(R.id.text_owner)).setEnabled(true);
+                        displayPet(pet);
                     }
                 });
+    }
+
+    private void displayPet(Pet pet) {
+        this.pet = pet;
+        ((TextView)root.findViewById(R.id.pet_name)).setText(pet.petName);
+        ((TextView)root.findViewById(R.id.pet_owner)).setText(pet.ownerName);
+        ((TextView)root.findViewById(R.id.owner_address)).setText(pet.ownerAddress);
+        callOwnerButton.setEnabled(true);
+        textOwnerButton.setEnabled(true);
+    }
+
+    private void callOwner() {
+        if(pet != null && pet.ownerPhone.length() > 0) {
+            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + pet.ownerPhone));
+            startActivity(intent);
+        }
+    }
+
+    private void textOwner() {
+        if(pet != null && pet.ownerPhone.length() > 0) {
+            Intent sendIntent = new Intent(Intent.ACTION_VIEW);
+            sendIntent.setData(Uri.parse("sms:" + pet.ownerPhone));
+            sendIntent.putExtra("sms_body", "Hey, your pet is lost! I have " + pet.petName + ".");
+            startActivity(sendIntent);
+        }
     }
 }
