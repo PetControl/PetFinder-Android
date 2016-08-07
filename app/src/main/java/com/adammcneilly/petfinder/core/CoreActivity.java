@@ -1,11 +1,14 @@
 package com.adammcneilly.petfinder.core;
 
+import android.app.Activity;
+import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.adammcneilly.petfinder.R;
+import com.adammcneilly.petfinder.fragments.AddPetFragment;
 import com.adammcneilly.petfinder.fragments.HomeFragment;
 import com.adammcneilly.petfinder.fragments.PetInfoFragment;
 import com.adammcneilly.petfinder.fragments.RegistrationFragment;
@@ -18,6 +21,7 @@ import com.adammcneilly.petfinder.fragments.ScanFragment;
  */
 public class CoreActivity extends AppCompatActivity {
     protected Toolbar toolbar;
+    protected String currentFragment;
 
     protected void setupToolbar(String title, boolean displayHome) {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -32,6 +36,9 @@ public class CoreActivity extends AppCompatActivity {
         CoreFragment fragment;
 
         switch(tag) {
+            case AddPetFragment.FRAGMENT_NAME:
+                fragment = AddPetFragment.newInstance();
+                break;
             case RegistrationFragment.FRAGMENT_NAME:
                 fragment = RegistrationFragment.newInstance();
                 break;
@@ -50,6 +57,8 @@ public class CoreActivity extends AppCompatActivity {
                 break;
         }
 
+        currentFragment = tag;
+
         getSupportFragmentManager()
                 .beginTransaction()
                 .setCustomAnimations(R.anim.fade_in, R.anim.fade_out,
@@ -59,15 +68,20 @@ public class CoreActivity extends AppCompatActivity {
                 .commit();
     }
 
-    protected void showFragment(Fragment fragment, String tag) {
-
+    public int getOwnerId() {
+        SharedPreferences sp = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
+        return sp.getInt("owner_id", -1);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case android.R.id.home:
-                getSupportFragmentManager().popBackStackImmediate();
+                // Never pop home
+                if(!currentFragment.equals(HomeFragment.FRAGMENT_NAME)) {
+                    getSupportFragmentManager().popBackStackImmediate();
+                }
+
                 // If we only have one fragment, hide back button.
                 if(getSupportFragmentManager().getBackStackEntryCount() == 1 && getSupportActionBar() != null) {
                     getSupportActionBar().setDisplayHomeAsUpEnabled(false);

@@ -1,6 +1,7 @@
 package com.adammcneilly.petfinder.service;
 
 import com.adammcneilly.petfinder.model.Pet;
+import com.adammcneilly.petfinder.model.PetList;
 
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -23,6 +24,9 @@ public interface PetService {
     @GET("getDoggoInfo")
     Observable<Pet> getPetForId(@Query("dogID") String id);
 
+    @GET("getOwnerDoggos")
+    Observable<PetList> getPetsForOwner(@Query("ownerID") String owner);
+
     @FormUrlEncoded
     @POST("addOwner")
     Observable<String> addOwner(
@@ -30,6 +34,15 @@ public interface PetService {
             @Field("lastName") String lastName,
             @Field("address") String address,
             @Field("phone") String phone
+    );
+
+    @FormUrlEncoded
+    @POST("addPet")
+    Observable<String> addPet(
+            @Field("name") String name,
+            @Field("breed") String breed,
+            @Field("notes") String notes,
+            @Field("ownerID") String ownerID
     );
 
     Retrofit retrofit = new Retrofit.Builder()

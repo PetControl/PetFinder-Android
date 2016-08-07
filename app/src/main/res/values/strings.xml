@@ -27,4 +27,10 @@
     <string name="phone">Phone:</string>
     <string name="registration">Registration</string>
     <string name="submit">Submit</string>
+    <string name="add_pet">Add Pet</string>
+    <string name="add_pet_description">Adding a pet within the mobile app will allow other users to scan your pet\'s tag if they ever find it. Do this to ensure your dog can be found and returned quickly, but also to allow your vet to stay up to date on your pet\'s health.</string>
+    <string name="add">Add</string>
+    <string name="pet_notes">Pet Notes:</string>
+    <string name="pet_breed">Pet Breed:</string>
+    <string name="my_pets">My Pets</string>
 </resources>

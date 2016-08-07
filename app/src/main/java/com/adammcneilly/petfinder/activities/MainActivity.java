@@ -34,8 +34,8 @@ public class MainActivity extends CoreActivity implements NavigationView.OnNavig
         mNavigationView.setNavigationItemSelectedListener(this);
         mNavigationView.getMenu().performIdentifierAction(R.id.nav_announcements, 0);
 
-        SharedPreferences sp = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
-        int ownerId = sp.getInt("owner_id", -1);
+        int ownerId = getOwnerId();
+
         Log.v("ADAM_MCNEILLY", "Owner received: " + ownerId);
         if(ownerId == -1) {
             showFragment(RegistrationFragment.FRAGMENT_NAME);
