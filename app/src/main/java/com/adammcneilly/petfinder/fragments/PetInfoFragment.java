@@ -6,9 +6,16 @@ import android.support.design.widget.CoordinatorLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.adammcneilly.petfinder.R;
 import com.adammcneilly.petfinder.core.CoreFragment;
+import com.adammcneilly.petfinder.model.Pet;
+import com.adammcneilly.petfinder.service.PetService;
+
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Fragment that displays pet info.
@@ -46,6 +53,31 @@ public class PetInfoFragment extends CoreFragment {
 
         setupToolbar(getString(R.string.pet_info), true);
 
+        displayPet();
+
         return root;
+    }
+
+    private void displayPet() {
+        PetService service = PetService.retrofit.create(PetService.class);
+        service.getPetForId(petId)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<Pet>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        ((TextView)root.findViewById(R.id.debug_view)).setText(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(Pet pet) {
+                        ((TextView)root.findViewById(R.id.debug_view)).setText(pet.toString());
+                    }
+                });
     }
 }

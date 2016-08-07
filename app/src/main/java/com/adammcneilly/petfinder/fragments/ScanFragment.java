@@ -89,21 +89,7 @@ public class ScanFragment extends CoreFragment implements QRCodeReaderView.OnQRC
                 .setAction("View Info", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        TwilioService service = TwilioService.retrofit.create(TwilioService.class);
-                        Call<Void> call = service.alertOwner("sms");
-                        Log.v(LOG_TAG, call.request().url().toString());
-                        call.enqueue(new Callback<Void>() {
-                            @Override
-                            public void onResponse(Call<Void> call, Response<Void> response) {
-                                showFragment(PetInfoFragment.FRAGMENT_NAME, text);
-                            }
-
-                            @Override
-                            public void onFailure(Call<Void> call, Throwable t) {
-                                Log.v(LOG_TAG, t.getMessage());
-                            }
-                        });
-                        snackbar.dismiss();
+                        showFragment(PetInfoFragment.FRAGMENT_NAME, text);
                     }
                 });
         snackbar.show();
