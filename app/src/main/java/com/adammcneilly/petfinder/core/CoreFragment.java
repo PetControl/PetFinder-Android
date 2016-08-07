@@ -17,8 +17,8 @@ public class CoreFragment extends Fragment {
         ((CoreActivity)getActivity()).setupToolbar(title, displayHome);
     }
 
-    protected void showFragment(String tag) {
-        ((CoreActivity)getActivity()).showFragment(tag);
+    protected void showFragment(String tag, Object... args) {
+        ((CoreActivity)getActivity()).showFragment(tag, args);
     }
 
     @Override

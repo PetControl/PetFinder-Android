@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 
 import com.adammcneilly.petfinder.R;
 import com.adammcneilly.petfinder.core.CoreFragment;
-import com.twilio.client.TwilioClientService;
 
 /**
  * Main fragment displayed to the user.
@@ -49,11 +48,5 @@ public class HomeFragment extends CoreFragment {
     public void onResume() {
         super.onResume();
         setupToolbar(getString(R.string.app_name), false);
-    }
-
-    private void twilio() {
-        String tokenServiceUrl = "https://4b05d87c.ngrok.io";
-
-
     }
 }

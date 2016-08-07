@@ -1,11 +1,13 @@
 package com.adammcneilly.petfinder.core;
 
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.adammcneilly.petfinder.R;
 import com.adammcneilly.petfinder.fragments.HomeFragment;
+import com.adammcneilly.petfinder.fragments.PetInfoFragment;
 import com.adammcneilly.petfinder.fragments.ScanFragment;
 
 /**
@@ -24,10 +26,16 @@ public class CoreActivity extends AppCompatActivity {
         }
     }
 
-    protected void showFragment(String tag) {
+    protected void showFragment(String tag, Object... args) {
         CoreFragment fragment;
 
         switch(tag) {
+            case PetInfoFragment.FRAGMENT_NAME:
+                if(args.length != 1 && !(args[0] instanceof String)) {
+                    throw new IllegalArgumentException("Fragment requires pet identifier.");
+                }
+                fragment = PetInfoFragment.newInstance(args[0].toString());
+                break;
             case ScanFragment.FRAGMENT_NAME:
                 fragment = ScanFragment.newInstance();
                 break;
@@ -42,6 +50,10 @@ public class CoreActivity extends AppCompatActivity {
                 .addToBackStack(tag)
                 .replace(R.id.fragment, fragment, tag)
                 .commit();
+    }
+
+    protected void showFragment(Fragment fragment, String tag) {
+
     }
 
     @Override

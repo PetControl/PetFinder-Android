@@ -16,7 +16,13 @@ import android.view.ViewGroup;
 
 import com.adammcneilly.petfinder.R;
 import com.adammcneilly.petfinder.core.CoreFragment;
+import com.adammcneilly.petfinder.service.TwilioService;
 import com.dlazaro66.qrcodereaderview.QRCodeReaderView;
+import com.twilio.client.TwilioClientService;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -77,15 +83,29 @@ public class ScanFragment extends CoreFragment implements QRCodeReaderView.OnQRC
 
     //region QR
     @Override
-    public void onQRCodeRead(String text, PointF[] points) {
+    public void onQRCodeRead(final String text, PointF[] points) {
         Log.v(LOG_TAG, text);
         snackbar = Snackbar.make(root, text, Snackbar.LENGTH_INDEFINITE)
-            .setAction(R.string.rescan, new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    qrCodeReaderView.getCameraManager().startPreview();
-                }
-            });
+                .setAction("View Info", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        TwilioService service = TwilioService.retrofit.create(TwilioService.class);
+                        Call<Void> call = service.alertOwner("sms");
+                        Log.v(LOG_TAG, call.request().url().toString());
+                        call.enqueue(new Callback<Void>() {
+                            @Override
+                            public void onResponse(Call<Void> call, Response<Void> response) {
+                                showFragment(PetInfoFragment.FRAGMENT_NAME, text);
+                            }
+
+                            @Override
+                            public void onFailure(Call<Void> call, Throwable t) {
+                                Log.v(LOG_TAG, t.getMessage());
+                            }
+                        });
+                        snackbar.dismiss();
+                    }
+                });
         snackbar.show();
         qrCodeReaderView.getCameraManager().stopPreview();
     }
