@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -95,7 +96,7 @@ public class PetInfoFragment extends CoreFragment {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.v("ADAM_MCNEILLY", e.getMessage());
+                        Snackbar.make(root, "Pet not found.", Snackbar.LENGTH_SHORT).show();
                     }
 
                     @Override

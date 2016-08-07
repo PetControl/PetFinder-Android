@@ -21,7 +21,7 @@ public interface PetService {
     Observable<Pet> getPetForId(@Query("dogID") String id);
 
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("https://petfinderdb.c1y1gazlb9dv.us-east-1.rds.amazonaws.com/")
+            .baseUrl("http://80471bb0.ngrok.io/")
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io()))
             .build();
