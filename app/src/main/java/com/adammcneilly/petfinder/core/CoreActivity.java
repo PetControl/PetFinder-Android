@@ -16,9 +16,10 @@ import com.adammcneilly.petfinder.fragments.ScanFragment;
  * Created by adam.mcneilly on 8/6/16.
  */
 public class CoreActivity extends AppCompatActivity {
+    protected Toolbar toolbar;
 
     protected void setupToolbar(String title, boolean displayHome) {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if(getSupportActionBar() != null) {
             getSupportActionBar().setTitle(title);

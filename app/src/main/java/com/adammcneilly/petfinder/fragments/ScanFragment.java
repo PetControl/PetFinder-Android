@@ -16,13 +16,7 @@ import android.view.ViewGroup;
 
 import com.adammcneilly.petfinder.R;
 import com.adammcneilly.petfinder.core.CoreFragment;
-import com.adammcneilly.petfinder.service.TwilioService;
 import com.dlazaro66.qrcodereaderview.QRCodeReaderView;
-import com.twilio.client.TwilioClientService;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * A placeholder fragment containing a simple view.
