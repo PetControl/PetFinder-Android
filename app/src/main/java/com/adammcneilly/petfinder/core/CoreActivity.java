@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import com.adammcneilly.petfinder.R;
 import com.adammcneilly.petfinder.fragments.HomeFragment;
 import com.adammcneilly.petfinder.fragments.PetInfoFragment;
+import com.adammcneilly.petfinder.fragments.RegistrationFragment;
 import com.adammcneilly.petfinder.fragments.ScanFragment;
 
 /**
@@ -31,6 +32,9 @@ public class CoreActivity extends AppCompatActivity {
         CoreFragment fragment;
 
         switch(tag) {
+            case RegistrationFragment.FRAGMENT_NAME:
+                fragment = RegistrationFragment.newInstance();
+                break;
             case PetInfoFragment.FRAGMENT_NAME:
                 if(args.length != 1 && !(args[0] instanceof String)) {
                     throw new IllegalArgumentException("Fragment requires pet identifier.");

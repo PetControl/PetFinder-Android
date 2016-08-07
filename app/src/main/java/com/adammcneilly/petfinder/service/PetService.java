@@ -5,7 +5,10 @@ import com.adammcneilly.petfinder.model.Pet;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;
@@ -20,8 +23,17 @@ public interface PetService {
     @GET("getDoggoInfo")
     Observable<Pet> getPetForId(@Query("dogID") String id);
 
+    @FormUrlEncoded
+    @POST("addOwner")
+    Observable<String> addOwner(
+            @Field("firstName") String firstName,
+            @Field("lastName") String lastName,
+            @Field("address") String address,
+            @Field("phone") String phone
+    );
+
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://80471bb0.ngrok.io/")
+            .baseUrl("http://dfb6c099.ngrok.io")
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io()))
             .build();

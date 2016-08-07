@@ -1,15 +1,19 @@
 package com.adammcneilly.petfinder.activities;
 
+import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.adammcneilly.petfinder.R;
 import com.adammcneilly.petfinder.core.CoreActivity;
 import com.adammcneilly.petfinder.fragments.HomeFragment;
+import com.adammcneilly.petfinder.fragments.RegistrationFragment;
 
 public class MainActivity extends CoreActivity implements NavigationView.OnNavigationItemSelectedListener {
     @Override
@@ -30,7 +34,14 @@ public class MainActivity extends CoreActivity implements NavigationView.OnNavig
         mNavigationView.setNavigationItemSelectedListener(this);
         mNavigationView.getMenu().performIdentifierAction(R.id.nav_announcements, 0);
 
-        showFragment(HomeFragment.FRAGMENT_NAME);
+        SharedPreferences sp = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
+        int ownerId = sp.getInt("owner_id", -1);
+        Log.v("ADAM_MCNEILLY", "Owner received: " + ownerId);
+        if(ownerId == -1) {
+            showFragment(RegistrationFragment.FRAGMENT_NAME);
+        } else {
+            showFragment(HomeFragment.FRAGMENT_NAME);
+        }
     }
 
     @Override
