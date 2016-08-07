@@ -15,4 +15,5 @@
     <string name="scan">Scan</string>
     <string name="scan_pet_description">Enter the unique pet identifier found on the animal\'s collar in the field below to retrieve owner information!</string>
     <string name="id">ID</string>
+    <string name="search">Search</string>
 </resources>
