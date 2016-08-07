@@ -6,6 +6,7 @@ package com.adammcneilly.petfinder.model;
  * Created by adam.mcneilly on 8/6/16.
  */
 public class Pet {
+    public String petId;
     public String petName;
     public String ownerName;
     public String ownerAddress;
