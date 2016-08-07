@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -94,7 +95,7 @@ public class PetInfoFragment extends CoreFragment {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        Log.v("ADAM_MCNEILLY", e.getMessage());
                     }
 
                     @Override
@@ -106,25 +107,25 @@ public class PetInfoFragment extends CoreFragment {
 
     private void displayPet(Pet pet) {
         this.pet = pet;
-        ((TextView)root.findViewById(R.id.pet_name)).setText(pet.petName);
-        ((TextView)root.findViewById(R.id.pet_owner)).setText(pet.ownerName);
-        ((TextView)root.findViewById(R.id.owner_address)).setText(pet.ownerAddress);
+        ((TextView)root.findViewById(R.id.pet_name)).setText(pet.name);
+        ((TextView)root.findViewById(R.id.pet_owner)).setText(pet.owner.fullName());
+        ((TextView)root.findViewById(R.id.owner_address)).setText(pet.owner.address);
         callOwnerButton.setEnabled(true);
         textOwnerButton.setEnabled(true);
     }
 
     private void callOwner() {
-        if(pet != null && pet.ownerPhone.length() > 0) {
-            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + pet.ownerPhone));
+        if(pet != null && pet.owner.phone.length() > 0) {
+            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + pet.owner.phone));
             startActivity(intent);
         }
     }
 
     private void textOwner() {
-        if(pet != null && pet.ownerPhone.length() > 0) {
+        if(pet != null && pet.owner.phone.length() > 0) {
             Intent sendIntent = new Intent(Intent.ACTION_VIEW);
-            sendIntent.setData(Uri.parse("sms:" + pet.ownerPhone));
-            sendIntent.putExtra("sms_body", "Hey, your pet is lost! I have " + pet.petName + ".");
+            sendIntent.setData(Uri.parse("sms:" + pet.owner.phone));
+            sendIntent.putExtra("sms_body", "Hey, your pet is lost! I have " + pet.name + ".");
             startActivity(sendIntent);
         }
     }

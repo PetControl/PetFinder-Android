@@ -47,6 +47,8 @@ public class CoreActivity extends AppCompatActivity {
 
         getSupportFragmentManager()
                 .beginTransaction()
+                .setCustomAnimations(R.anim.fade_in, R.anim.fade_out,
+                        R.anim.fade_in, R.anim.fade_out)
                 .addToBackStack(tag)
                 .replace(R.id.fragment, fragment, tag)
                 .commit();
