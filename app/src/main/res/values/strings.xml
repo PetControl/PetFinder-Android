@@ -11,4 +11,8 @@
     <string name="call_owner">Call Owner</string>
     <string name="text_owner">Text Owner</string>
     <string name="search_by_id">Search By ID</string>
+    <string name="scan_tag_description">Scan a QR code on the collar of a pet to retrieve owner information!</string>
+    <string name="scan">Scan</string>
+    <string name="scan_pet_description">Enter the unique pet identifier found on the animal\'s collar in the field below to retrieve owner information!</string>
+    <string name="id">ID</string>
 </resources>
